@@ -5,12 +5,11 @@ import uploadOnCloudinary from "../utils/cloudinary.js";
 import ApiResponse from "../utils/apiResponse.js";
 
 const registerUser = asyncHandler( async (req , res) => {
-    
-    const {email,name, password} = req.body;
-    console.log(`${email} ${password}`)
+
+    const {fullName,username,password,email} = req.body;
 
     if(
-        [fullName,name,password,email].some((field) => field?.trim == "")
+        [fullName,username,password,email].some((field) => field?.trim == "")
     ){
         throw new ApiError(400,"All fields are required")
     };
@@ -24,12 +23,16 @@ const registerUser = asyncHandler( async (req , res) => {
     };
 
     const avaterLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
+   
+    let converImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files?.coverImage[0]?.path;
+    }
 
     if(!avaterLocalPath){
         throw new ApiError(409,"Avatar file is required")
     };
-
+    console.log(req);
     const avatar = await uploadOnCloudinary(avaterLocalPath);
     const coverImage = await uploadOnCloudinary(coverImageLocalPath);
     
@@ -46,7 +49,7 @@ const registerUser = asyncHandler( async (req , res) => {
         username : username.toLowerCase()
     });
 
-    const createdUser = await user.findById(user._id).select("-password -refreshToken");
+    const createdUser = await User.findById(user._id).select("-password -refreshToken");
 
     if(!createdUser){
         throw new ApiError(500,"Something went wrong while registering the user");
