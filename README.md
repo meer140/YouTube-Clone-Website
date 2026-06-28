@@ -2,21 +2,6 @@
 
 A professional RESTful API backend built with Node.js, Express, and MongoDB that replicates core YouTube functionality. This project demonstrates modern backend development practices including user authentication, video management, and database operations.
 
-## 📋 Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [API Endpoints](#api-endpoints)
-- [Development](#development)
-- [Environment Variables](#environment-variables)
-- [Dependencies](#dependencies)
-- [License](#license)
-- [Author](#author)
-
 ## ✨ Features
 
 - **User Authentication**: Secure user registration and login with JWT tokens
